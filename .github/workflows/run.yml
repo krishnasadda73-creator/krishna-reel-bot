@@ -1,16 +1,29 @@
-steps:
-  - uses: actions/checkout@v3
+name: Krishna Reel Bot
 
-  - uses: actions/setup-python@v4
-    with:
-      python-version: "3.10"
+on:
+  workflow_dispatch:
 
-  - name: Install ffmpeg
-    run: sudo apt update && sudo apt install -y ffmpeg
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
 
-  - run: pip install pillow google-generativeai google-auth google-auth-oauthlib google-api-python-client
+    steps:
+      - uses: actions/checkout@v3
 
-  - name: Run Script
-    env:
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-    run: python main.py
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      # ✅ FIX: ffmpeg install
+      - name: Install ffmpeg
+        run: sudo apt update && sudo apt install -y ffmpeg
+
+      # ✅ Python dependencies
+      - name: Install dependencies
+        run: pip install pillow google-generativeai google-auth google-auth-oauthlib google-api-python-client
+
+      # ✅ Run script
+      - name: Run Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python main.py
