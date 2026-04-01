@@ -16,7 +16,7 @@ steps:
 
   - run: pip install pillow google-generativeai google-auth google-auth-oauthlib google-api-python-client
 
-  - env:
+  - name: Run Script
+    env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
     run: python main.py
-```
